@@ -7,5 +7,5 @@ For these scripts to run you will need:
 - What's Tuned (get it from Apple's App Store for macOS)
 - JSON Helper (get it from Apple's App Store for macOS)
 
-Note that these are .applescript files (pure text). To optimize exceution performace you may want to 
+Note that these are .applescript files (pure text). To optimise execution performance you may want to 
 save these files as .scpt files.
