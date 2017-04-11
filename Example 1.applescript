@@ -4,16 +4,20 @@
 	Based on template Version: 1.0
 	(c)2017 Plauw
 	
-	This example show how to get information from LyricWikia, Wikipedia and iTunesStore & Spotify.
-	It's output is formated the same way as the default output in What's Tuned. Therfore, this example
+	This example shows how to get information from LyricWikia, Wikipedia and any url for fetching artwork
+	Its output is formatted the same way as the default output in What's Tuned. Therfore, this example
 	can be considred as a tutorial and only provide artwork (from Spotify and iTunesStore) additional
 	to what What's Tuned does by default.
+	
+	Note that this script is a pure text file (.applescript). You may want to save it as a compiled apple script
+	(.scpt) for better performance.
 *)
 
 
 (*	===============================================================================
-	Main run handler. (for testing from within Script Editor ONLY)
-	Use this for testing your Inserts from the "Script Editor.app". This run handler will NEVER be called by What's Tuned.
+	Main run handler (for testing from within Script Editor ONLY).
+	Use this for testing your Inserts from the "Script Editor.app". 
+	This run handler will NEVER be called by What's Tuned.
 *)
 on run
 	(* Set variables we use for testing. *)
@@ -102,8 +106,8 @@ on getLyricsFromLyricWikia(title, artist, languageCode)
 end getLyricsFromLyricWikia
 
 on getWikiPageExtractForArtist(artist, languageCode)
-	-- Note: we can not use fetch JSON from here because ther may be char's like '&' 
-	-- in the artist name. JSON helper seems not to deal with this.
+	-- Note: we cannot use 'fetch JSON from' here because ther may be char's like '&' in the artist name. 
+	-- JSON helper seems not to deal with this.
 	set urlStr to "https://" & languageCode & ".wikipedia.org/w/api.php?action=query&prop=extracts&format=json&formatversion=2&exintro&redirects\" --data-urlencode \"&titles=" & artist
 	set rawJSONData to do shell script "curl -s --get \"" & urlStr & "\""
 	tell application "JSON Helper"
