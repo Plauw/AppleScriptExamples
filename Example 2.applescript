@@ -79,7 +79,7 @@ on GETARTISTINFO(media, title, artist, featArtist, albumName, languageCode, coun
     			<body>
 				<center>
 					<img src=\"" & item 1 of spotifyResult & "\"></br>
-					<a href=\"" & item 2 of spotifyResult & "\">View artist in Spotify...</a></p>
+					<a href=\"" & item 4 of spotifyResult & "\">View artist in Spotify...</a></p>
 				</center>
 				" & extract & "</p>
 				<a href=\"" & item 4 of wikiPediaResults & "\">read more about '" & artist & "' on wikipedia...</a></br>
