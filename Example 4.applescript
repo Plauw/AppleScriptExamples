@@ -47,7 +47,7 @@ on GETLYRICS(media, title, artist, featArtist, albumName, languageCode, countryC
 		set htmlText to "
 			<html>
     			<body>
-					<b>Lyrics for '" & item 2 of lyricsResults & "' not found at " & item 2 of lyricsResults & "<b></br>
+					<b>Lyrics for '" & item 2 of lyricsResults & "' not found at " & item 3 of lyricsResults & "<b></br>
 					<a href=\"http://www.google.com/search?as_q=" & artist & " - " & title & " - lyrics\">Google for more...</a>
 				</body>
 			</html>"
