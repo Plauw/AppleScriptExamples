@@ -39,6 +39,7 @@ on GETLYRICS(media, title, artist, featArtist, albumName, languageCode, countryC
 	set LyricWikiaResults to getLyricsFromLyricWikia(title, artist, languageCode)
 	set makeItPersonalResults to getLyricsFromMakeItPersonal(title, artist, languageCode)
 	set musixMatchResults to getURLFromMusixMatch(title, artist, languageCode)
+	set AZLyricsResults to getURLFromAZLyrics(title, artist, languageCode)
 	set htmlText to "
 			<html>
     				<body>
@@ -48,6 +49,7 @@ on GETLYRICS(media, title, artist, featArtist, albumName, languageCode, countryC
 					<a href=\"" & item 4 of LyricWikiaResults & "\">View these lyrics at LyricWikia...</a></br>
 					<a href=\"" & item 4 of makeItPersonalResults & "\">View these lyrics at makeitpersonal.co...</a></br>
 					<a href=\"" & item 4 of musixMatchResults & "\">View these lyrics at MusixMatch...</a></br>
+					<a href=\"" & item 4 of AZLyricsResults & "\">View these lyrics at AZLyrics...</a></br>
 					<a href=\"http://www.google.com/search?as_q=" & artist & " - " & title & " - lyrics\">Google for more...</a>
 				</body>
 			</html>"
@@ -141,6 +143,14 @@ on getLyricsFromMusixMatch(title, artist, languageCode, api_key)
 	return {theLyrics, title & " by " & artist, "MusixMatch", track_share_url}
 end getLyricsFromMusixMatch
 
+on getURLFromAZLyrics(title, artist, languageCode)
+	set artist to replaceText(artist, " ", "")
+	set title to replaceText(title, " ", "")
+	set artist to toLowerCase(artist)
+	set title to toLowerCase(title)
+	set url_webpage to "http://www.azlyrics.com/lyrics/" & artist & "/" & title & ".html"
+	return {"Found", title & " by " & artist, "AZLyrics", url_webpage}
+end getURLFromAZLyrics
 
 on getWikiPageExtractForArtist(artist, languageCode)
 	-- Note: we can not use fetch JSON from here because ther may be char's like '&' 
@@ -174,7 +184,7 @@ on getSpotifyInfoForArtist(artist)
 			set imgList to images of first item of |items| of artists of JSONResult as list
 			set imgUrl to ""
 			repeat with imgItem in imgList
-				if width of imgItem as integer ² 400 and imgUrl = "" then
+				if width of imgItem as integer Â² 400 and imgUrl = "" then
 					set imgUrl to |url| of imgItem
 				end if
 			end repeat
@@ -211,4 +221,14 @@ on scrapeWebPage(urlStr, startText, endText)
 	set htmlText to do shell script "curl -L -s --get '" & urlStr & "'" without altering line endings
 	return extractBetween(htmlText, startText, endText)
 end scrapeWebPage
+
+on toLowerCase(theText)
+	set upperCaseChars to "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	set lowerCaseChars to "abcdefghijklmnopqrstuvwxyz"
+	set theChars to characters of theText
+	repeat with c in theChars
+		if c is in upperCaseChars then set contents of c to item (offset of c in upperCaseChars) of lowerCaseChars
+	end repeat
+	return theChars as string
+end toLowerCase
 
